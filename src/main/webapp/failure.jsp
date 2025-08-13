@@ -29,7 +29,7 @@
             border-radius: 15px;
             box-shadow: 0px 4px 15px rgba(0,0,0,0.1); 
             padding: 30px;
-            text-align: center;
+            text-align: center; 
             max-width: 420px;
             background: #fff;
         }
