@@ -55,7 +55,7 @@
         Unfortunately, your payment could not be processed. Please check your payment details or try again later.
     </p>
     <div class="d-grid gap-2 mt-4">
-        <a href="payment.jsp" class="btn btn-danger btn-lg">
+        <a href="./payment.jsp" class="btn btn-danger btn-lg">
             <i class="bi bi-arrow-repeat"></i> Try Again
         </a>
         <a href="./index.jsp" class="btn btn-outline-secondary">
