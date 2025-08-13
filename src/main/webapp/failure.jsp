@@ -58,7 +58,7 @@
         <a href="payment.jsp" class="btn btn-danger btn-lg">
             <i class="bi bi-arrow-repeat"></i> Try Again
         </a>
-        <a href="index.jsp" class="btn btn-outline-secondary">
+        <a href="./index.jsp" class="btn btn-outline-secondary">
             <i class="bi bi-house"></i> Back to Home
         </a>
     </div>
