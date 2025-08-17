@@ -137,7 +137,7 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100 slider-img" src="https://e0.pxfuel.com/wallpapers/88/99/desktop-wallpaper-candle-light-still-life-books.jpg" alt="First slide">
+            <img class="d-block w-100 slider-img" src="https://wallpapercave.com/wp/wp2036956.jpg" alt="First slide">
             <div class="carousel-caption">
                 <h2>Welcome to CodeBook Store</h2>
                 <p>Explore Coding, Learn Fast & Build Big!</p>

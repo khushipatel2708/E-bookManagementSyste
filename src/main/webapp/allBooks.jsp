@@ -16,20 +16,21 @@
     <title>Books by Category</title>
     <style>
         :root {
-            --primary-color: #5d5dff;
-            --secondary-color: #8a8aff;
-            --bg-color: #f0f4f8;
+            --primary-color: #0077b6; /* A calm, professional blue */
+            --secondary-color: #48cae4; /* A light, refreshing blue */
+            --tertiary-color: #03045e; /* A very dark blue for text */
+            --bg-color: #e9ecef; /* A light grey for the background */
             --card-bg: #ffffff;
-            --text-dark: #2c3e50;
-            --text-muted: #7f8c8d;
-            --border-color: #ecf0f1;
+            --text-dark: var(--tertiary-color);
+            --text-muted: #6c757d;
+            --border-color: #dee2e6;
             --shadow-light: rgba(0, 0, 0, 0.08);
             --shadow-hover: rgba(0, 0, 0, 0.15);
         }
 
         body {
             background-color: var(--bg-color);
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             color: var(--text-dark);
         }
 
@@ -37,13 +38,13 @@
             max-width: 1320px;
         }
 
-        /* Search box */
+        /* Search bar */
         .search-box {
             background: var(--card-bg);
             padding: 12px 24px;
             border-radius: 50px;
             box-shadow: 0 4px 15px var(--shadow-light);
-            margin-bottom: 40px;
+            margin-bottom: 2.5rem;
             transition: box-shadow 0.3s ease;
         }
         .search-box input {
@@ -54,29 +55,27 @@
             color: var(--text-dark);
             background: transparent;
         }
-        .search-box input::placeholder {
-            color: var(--text-muted);
-        }
         .search-box:focus-within {
             box-shadow: 0 8px 25px var(--shadow-hover);
         }
 
-        /* Category sidebar */
+        /* Category Sidebar */
         .category-nav {
             position: sticky;
             top: 90px;
             background: var(--card-bg);
             padding: 24px;
-            border-radius: 20px;
+            border-radius: 1rem;
             box-shadow: 0 4px 15px var(--shadow-light);
+            border-left: 5px solid var(--primary-color);
         }
         .category-nav h5 {
             font-weight: 700;
             margin-bottom: 20px;
             color: var(--primary-color);
             font-size: 1.25rem;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
         }
         .category-nav a {
             display: flex;
@@ -84,14 +83,15 @@
             padding: 12px 15px;
             color: var(--text-dark);
             font-weight: 500;
-            border-radius: 12px;
+            border-radius: 8px;
             margin-bottom: 8px;
-            transition: background 0.25s ease, color 0.25s ease;
+            transition: all 0.25s ease;
             text-decoration: none;
         }
         .category-nav a:hover {
             background-color: var(--primary-color);
             color: var(--card-bg);
+            transform: translateX(5px);
         }
         .category-nav a:hover i {
             color: var(--card-bg);
@@ -103,25 +103,32 @@
             transition: color 0.25s ease;
         }
 
-        /* Category title */
+        /* Category Title */
         .category-title {
             margin-top: 50px;
             margin-bottom: 30px;
             font-weight: 700;
             font-size: 2rem;
             color: var(--primary-color);
-            border-left: 6px solid var(--primary-color);
+            border-left: 6px solid var(--secondary-color);
             padding-left: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .category-title i {
+            margin-right: 15px;
+            font-size: 2rem;
+            color: var(--primary-color);
         }
 
-        /* Book card */
+        /* Book Card */
         .book-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 1rem;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%;
-            border: none;
+            border: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
         }
@@ -129,11 +136,20 @@
             transform: translateY(-8px);
             box-shadow: 0 12px 30px var(--shadow-hover);
         }
+        .book-card .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1;
+        }
+
         .book-img-container {
             position: relative;
-            background: linear-gradient(135deg, var(--bg-color), #ffffff);
+            background: linear-gradient(to bottom, var(--secondary-color), var(--card-bg));
             padding: 20px;
-            height: 250px;
+            height: 280px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -146,33 +162,21 @@
             transition: transform 0.3s ease;
         }
         .book-card:hover .book-img {
-            transform: scale(1.08);
+            transform: scale(1.08) rotate(-2deg);
         }
 
-        .book-card .card-body {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            flex-grow: 1; /* Allow card body to take up remaining space */
-        }
         .book-info {
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 0 10px;
+            margin-top: 10px;
         }
         .book-info .card-title {
             font-size: 1.15rem;
             font-weight: 600;
             color: var(--primary-color);
-            margin: 0;
+            margin: 0 0 5px 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 60%;
         }
         .book-info .card-subtitle {
             font-size: 0.9rem;
@@ -181,20 +185,18 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 40%;
-            text-align: right;
         }
-
         .price-badge {
             font-weight: 700;
             font-size: 1.5rem;
-            color: #2ecc71;
+            color: #28a745; /* A classic green for pricing */
+            margin-top: 15px;
             margin-bottom: 15px;
         }
 
-        /* This is the new, more professional button group layout */
+        /* Buttons */
         .btn-group-actions {
-            margin-top: auto; /* Push to the bottom of the card */
+            margin-top: auto;
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -205,33 +207,36 @@
             font-weight: 600;
             transition: all 0.3s ease;
             text-decoration: none;
-            flex-grow: 1;
-            margin: 0 5px;
+            padding: 10px 20px;
         }
         .btn-group-actions .btn-view {
             color: var(--primary-color);
             border-color: var(--primary-color);
             background-color: transparent;
-            width: 70%;
+            flex-grow: 1;
+            margin-right: 10px;
         }
         .btn-group-actions .btn-view:hover {
             background-color: var(--primary-color);
             color: var(--card-bg);
         }
         .btn-group-actions .btn-cart {
-            background-color: #28a745;
-            color: white;
-            border-color: #28a745;
-            width: 30%;
+            background-color: var(--secondary-color);
+            color: var(--text-dark);
+            border-color: var(--secondary-color);
+            flex-grow: 0;
+            width: 45px;
+            height: 45px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .btn-group-actions .btn-cart:hover {
-            background-color: #218838;
+            background-color: #00b4d8;
+            border-color: #00b4d8;
         }
 
-        /* Availability badge */
         .availability-badge {
             position: absolute;
             top: 15px;
@@ -262,13 +267,13 @@
     <div class="row">
         <div class="col-lg-3 col-md-4 mb-4">
             <div class="category-nav shadow-sm">
-                <h5>📂 Categories</h5>
+                <h5>📚 Explore Categories</h5>
                 <%
                     for (String category : groupedBooks.keySet()) {
                 %>
-                    <a href="#cat-<%= category.replaceAll("\\s+", "-") %>">
-                        <i class="fas fa-book"></i> <%= category %>
-                    </a>
+                        <a href="#cat-<%= category.replaceAll("\\s+", "-") %>">
+                            <i class="fas fa-book-reader"></i> <%= category %>
+                        </a>
                 <%
                     }
                 %>
@@ -279,60 +284,61 @@
             <%
                 if (groupedBooks == null || groupedBooks.isEmpty()) {
             %>
-                <div class="text-center text-muted py-5">
-                    <h4 class="fw-bold">No books found.</h4>
-                    <p>Please check back later or try a different search.</p>
-                </div>
+                    <div class="text-center text-muted py-5">
+                        <h4 class="fw-bold">No books found.</h4>
+                        <p>Please check back later or try a different search.</p>
+                    </div>
             <%
                 } else {
                     for (Map.Entry<String, List<BookDetail>> entry : groupedBooks.entrySet()) {
                         String bookCategory = entry.getKey();
                         List<BookDetail> books = entry.getValue();
             %>
-                <h2 id="cat-<%= bookCategory.replaceAll("\\s+", "-") %>" class="category-title" data-aos="fade-right">
-                    📚 <%= bookCategory %>
-                </h2>
-                <div class="row">
-                    <%
-                        int count = 0;
-                        for (BookDetail bd : books) {
-                            count++;
-                    %>
-                        <div class="col-lg-4 col-md-6 col-sm-6 mb-4 book-item"
-                             data-title="<%= bd.getBookName().toLowerCase() %>"
-                             data-author="<%= bd.getAuthorName().toLowerCase() %>">
-                            <div class="card book-card h-100" data-aos="fade-up" data-aos-delay="<%= count * 100 %>">
-                                <div class="book-img-container">
-                                    <img src="<%= request.getContextPath() %>/BookImage?img=<%= bd.getPhoto() %>"
-                                         class="book-img"
-                                         alt="Book Cover">
-                                    <span class="availability-badge <%= bd.getAvailable() > 0 ? "bg-success" : "bg-danger" %>">
-                                        <%= bd.getAvailable() > 0 ? "Available" : "Out of Stock" %>
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="book-info">
-                                        <h4 class="card-title" title="<%= bd.getBookName() %>">
-                                            <%= bd.getBookName() %>
-                                        </h4>
-                                        <p class="card-subtitle"><small>by <%= bd.getAuthorName() %></small></p>
+                        <h2 id="cat-<%= bookCategory.replaceAll("\\s+", "-") %>" class="category-title" data-aos="fade-right">
+                            <i class="fas fa-bookmark"></i> <%= bookCategory %>
+                        </h2>
+                        <div class="row">
+                            <%
+                                int count = 0;
+                                for (BookDetail bd : books) {
+                                    count++;
+                            %>
+                                <div class="col-lg-4 col-md-6 col-sm-6 mb-4 book-item"
+                                     data-title="<%= bd.getBookName().toLowerCase() %>"
+                                     data-author="<%= bd.getAuthorName().toLowerCase() %>">
+                                    <div class="card book-card h-100" data-aos="fade-up" data-aos-delay="<%= count * 100 %>">
+                                        <div class="book-img-container">
+                                            <img src="<%= request.getContextPath() %>/BookImage?img=<%= bd.getPhoto() %>"
+                                                 class="book-img"
+                                                 alt="Book Cover">
+                                            <span class="availability-badge <%= bd.getAvailable() > 0 ? "bg-success" : "bg-danger" %>">
+                                                <%= bd.getAvailable() > 0 ? "Available" : "Out of Stock" %>
+                                            </span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="book-info">
+                                                <h4 class="card-title" title="<%= bd.getBookName() %>">
+                                                    <%= bd.getBookName() %>
+                                                </h4>
+                                                <p class="card-subtitle">by <%= bd.getAuthorName() %></p>
+                                            </div>
+                                            <p class="price-badge">₹<%= bd.getPrice() %></p>
+                                            <div class="btn-group-actions">
+                                                <a href="./viewBook.jsp?bookId=<%= bd.getId() %>"
+                                                   class="btn btn-sm btn-outline-primary btn-view">
+                                                    View Details
+                                                </a>
+                                                <button onclick="addCart(<%= bd.getId() %>)"
+                                                        class="btn btn-sm btn-success btn-cart"
+                                                        <%= bd.getAvailable() == 0 ? "disabled" : "" %>>
+                                                    <i class="fas fa-cart-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="price-badge">₹<%= bd.getPrice() %></p>
-                                    <div class="btn-group-actions">
-                                        <a href="./viewBook.jsp?bookId=<%= bd.getId() %>"
-                                           class="btn btn-sm btn-outline-primary btn-view">
-                                            View
-                                        </a>
-                                        <button onclick="addCart(<%= bd.getId() %>)"
-                                                class="btn btn-sm btn-success btn-cart">
-                                            <i class="fas fa-cart-plus"></i>
-                                        </button>
-                                    </div>
                                 </div>
-                            </div>
+                            <% } %>
                         </div>
-                    <% } %>
-                </div>
             <%
                     }
                 }

@@ -61,58 +61,70 @@
     </div>
 </div>-->
 
-<!-- Top Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+<!-- Modern Top Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top" 
+     style="background: linear-gradient(90deg, #007bff 0%, #6610f2 100%);">
   <div class="container">
-    <a class="navbar-brand text-primary font-weight-bold" href="./index.jsp">
-      <i class="fas fa-book"></i> eBook
+    <!-- Brand -->
+    <a class="navbar-brand text-white font-weight-bold d-flex align-items-center" href="./index.jsp">
+      <i class="fas fa-book-open mr-2"></i> eBook
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Menu -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mr-auto ml-4">
         <li class="nav-item active">
-          <a class="nav-link" href="./index.jsp">Home</a>
+          <a class="nav-link text-white nav-hover" href="./index.jsp"><i class="fas fa-home mr-1"></i> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./allBooks.jsp">Books</a>
+          <a class="nav-link text-white nav-hover" href="./allBooks.jsp"><i class="fas fa-book mr-1"></i> Books</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./Aboutus.jsp">About</a>
+          <a class="nav-link text-white nav-hover" href="./Aboutus.jsp"><i class="fas fa-info-circle mr-1"></i> About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./contact.jsp">Contact</a>
+          <a class="nav-link text-white nav-hover" href="./contact.jsp"><i class="fas fa-envelope mr-1"></i> Contact</a>
         </li>
+
+        <!-- Cart -->
         <%
             if (ud != null) {
                 CartDAO cartDAO = new CartDAO(DBConnect.getConnection());
                 int totalCart = cartDAO.totalCart(ud.getId());
         %>
         <li class="nav-item">
-          <a class="nav-link" href="./myCart.jsp">
-            <i class="fa fa-shopping-cart"></i> Cart (<span id="navbarTotalCart"><%= totalCart%></span>)
+          <a class="nav-link text-white nav-hover" href="./myCart.jsp">
+            <i class="fa fa-shopping-cart"></i> Cart 
+            <span class="badge badge-light ml-1" id="navbarTotalCart"><%= totalCart%></span>
           </a>
         </li>
         <% } %>
       </ul>
+
+      <!-- Right Buttons -->
       <div class="ml-3">
         <%
           if (ud == null) {
         %>
-        <a href="login.jsp" class="btn btn-outline-success btn-sm mr-2">
+        <a href="login.jsp" class="btn btn-outline-light btn-sm mr-2">
           <i class="fas fa-sign-in-alt"></i> Login
         </a>
-        <a href="signup.jsp" class="btn btn-outline-primary btn-sm">
+        <a href="signup.jsp" class="btn btn-warning btn-sm text-dark font-weight-bold">
           <i class="fas fa-user-plus"></i> Register
         </a>
         <%
           } else {
         %>
-        <a href="./profile.jsp" class="btn btn-outline-secondary btn-sm mr-2">
+        <a href="./profile.jsp" class="btn btn-light btn-sm mr-2">
           <i class="fas fa-user"></i> <%= ud.getName() %>
         </a>
-        <a href="./UserLogoutServlet" class="btn btn-outline-danger btn-sm">
+        <a href="./UserLogoutServlet" class="btn btn-danger btn-sm">
           <i class="fas fa-sign-out-alt"></i> Logout
         </a>
         <%
@@ -122,6 +134,25 @@
     </div>
   </div>
 </nav>
+
+<style>
+  .nav-hover {
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .nav-hover:hover {
+    color: #ffd700 !important;  /* gold text highlight */
+    transform: translateY(-2px); /* slight lift */
+  }
+  .navbar-brand {
+    font-size: 1.4rem;
+  }
+  .badge {
+    font-size: 0.75rem;
+    border-radius: 12px;
+    padding: 3px 7px;
+  }
+</style>
+
 
 <div class="container-fluid p-4 top-navbar-custom2 m-0">
     <div class="row">
