@@ -7,13 +7,16 @@
 <%@page import="com.detail.OrderListDetail"%>
 <%@page import="java.util.List"%>
 <%@page import="com.dao.OrderDAO"%>
+<%@page import="auth.User"%>
 <%
-    if(session.getAttribute("userL")==null){
+    // ✅ check login
+    User loggedUser = (User) session.getAttribute("userObj"); 
+    if (loggedUser == null) {
         response.sendRedirect("./index.jsp");
+        return;
     } else {
-        UserDetail udCart = (UserDetail) session.getAttribute("userL");
         OrderDAO orderDAO = new OrderDAO(DBConnect.getConnection());
-        List<OrderListDetail> list = orderDAO.getOrderList(udCart.getId());
+        List<OrderListDetail> list = orderDAO.getOrderList(loggedUser.getId());
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

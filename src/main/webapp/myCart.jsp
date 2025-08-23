@@ -4,16 +4,17 @@
     Author     : chetan
 --%>
 
+<%@page import="auth.User"%>   <%-- 🔹 Import your model --%>
 <%@page import="com.dao.OrderDAO"%>
 <%@page import="com.detail.CartDetail"%>
 <%@page import="java.util.List"%>
 <%
-    if(session.getAttribute("userL")==null){
+    if(session.getAttribute("userObj")==null){   // 🔹 use "userObj" (same as profile.jsp)
         response.sendRedirect("./index.jsp");
     } else {
-        UserDetail udCart = (UserDetail) session.getAttribute("userL");
+        User udCart = (User) session.getAttribute("userObj");  // 🔹 use your model
         CartDAO cartDAO2 = new CartDAO(DBConnect.getConnection());
-        List<CartDetail> list = cartDAO2.getCart(udCart.getId());
+        List<CartDetail> list = cartDAO2.getCart(udCart.getId());   // 🔹 getId() from your model
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
