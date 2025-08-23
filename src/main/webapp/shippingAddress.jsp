@@ -5,17 +5,16 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <%
-    // Check if user is logged in
-    User user = (User) session.getAttribute("userObj");
+    User user = (User) session.getAttribute("userObj"); // ✅ matches servlet
     if (user == null) {
         response.sendRedirect("./index.jsp");
         return;
     }
 
-    // Fetch shipping address for logged-in user
     ShippingDAO shipDAO = new ShippingDAO(DBConnect.getConnection());
     ShippingDetail sd = shipDAO.getAddress(user.getId());
 %>
+
 
 <!DOCTYPE html>
 <html>
@@ -50,49 +49,49 @@
                         <small id="status"></small>
                     </div>
 
-                    <form id="shippingAddress">
+                    <form id="shippingAddress" method="post" action="ShippingAddressServlet">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="name">Full Name <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control"
                                        value="<%= (sd != null) ? sd.getName() : user.getFullname() %>"
-                                       name="name" id="name" maxlength="30" required placeholder="Enter Your Full Name" />
+                                       name="name" id="name" maxlength="30" required />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="phone">Phone Number <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control"
+                                <input type="text" class="form-control"
                                        value="<%= (sd != null) ? sd.getPhone() : user.getPhone() %>"
-                                       name="phone" id="phone" required placeholder="+91 9638527410" />
+                                       name="phone" id="phone" required />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="add1">Address Line 1 <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control"
                                        value="<%= (sd != null) ? sd.getAddress1() : "" %>"
-                                       name="add1" id="add1" maxlength="30" required placeholder="Address Line 1" />
+                                       name="add1" id="add1" maxlength="30" required />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="add2">Address Line 2</label>
                                 <input type="text" class="form-control"
                                        value="<%= (sd != null) ? sd.getAddress2() : "" %>"
-                                       name="add2" id="add2" maxlength="30" placeholder="Address Line 2" />
+                                       name="add2" id="add2" maxlength="30" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="lMark">Landmark <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control"
                                        value="<%= (sd != null) ? sd.getLandmark() : "" %>"
-                                       name="lMark" id="lMark" maxlength="30" required placeholder="Landmark" />
+                                       name="lMark" id="lMark" maxlength="30" required />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="city">City <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control"
                                        value="<%= (sd != null) ? sd.getCity() : "" %>"
-                                       name="city" id="city" maxlength="30" required placeholder="City" />
+                                       name="city" id="city" maxlength="30" required />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="pin">Pin Code <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control"
+                                <input type="text" class="form-control"
                                        value="<%= (sd != null) ? sd.getPinCode() : "" %>"
-                                       name="pin" id="pin" required placeholder="For eg: 250002" />
+                                       name="pin" id="pin" required />
                             </div>
                         </div>
 

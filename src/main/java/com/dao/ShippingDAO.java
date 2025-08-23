@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dao;
+
 import com.detail.ShippingDetail;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- *
- * @author chetan
- */
 public class ShippingDAO {
     
     private final Connection conn;
@@ -24,12 +16,13 @@ public class ShippingDAO {
     
     public String insertAddress(ShippingDetail sd){
         try {
-            String query = "select * from shipping where userId = ?";
+            String query = "SELECT * FROM shipping WHERE userId = ?";
             PreparedStatement pt1 = conn.prepareStatement(query);
             pt1.setInt(1, sd.getUserId());
             ResultSet rs1 = pt1.executeQuery();
+
             if(rs1.next()) {
-                String query2 = "update shipping set name = ?, phone = ?, address1 = ?, address2 = ?, landmark = ?, city = ?, pincode = ? where userId = ?";
+                String query2 = "UPDATE shipping SET name=?, phone=?, address1=?, address2=?, landmark=?, city=?, pincode=? WHERE userId=?";
                 PreparedStatement pt2 = conn.prepareStatement(query2);
                 pt2.setString(1, sd.getName());
                 pt2.setString(2, sd.getPhone());
@@ -39,12 +32,11 @@ public class ShippingDAO {
                 pt2.setString(6, sd.getCity());
                 pt2.setString(7, sd.getPinCode());
                 pt2.setInt(8, sd.getUserId());
+
                 int i = pt2.executeUpdate();
-                if(i == 1) {
-                    return "done";
-                }
-            } else{
-                String query2 = "insert into shipping (name, phone, address1, address2, landmark, city, pincode, userId) values(?,?,?,?,?,?,?,?)";
+                if(i == 1) return "done";
+            } else {
+                String query2 = "INSERT INTO shipping (name, phone, address1, address2, landmark, city, pincode, userId) VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement pt2 = conn.prepareStatement(query2);
                 pt2.setString(1, sd.getName());
                 pt2.setString(2, sd.getPhone());
@@ -54,10 +46,9 @@ public class ShippingDAO {
                 pt2.setString(6, sd.getCity());
                 pt2.setString(7, sd.getPinCode());
                 pt2.setInt(8, sd.getUserId());
+
                 int i = pt2.executeUpdate();
-                if(i == 1) {
-                    return "done";
-                }
+                if(i == 1) return "done";
             }
         } catch(SQLException e){
             e.printStackTrace();
@@ -67,11 +58,12 @@ public class ShippingDAO {
     
     public ShippingDetail getAddress(int userId){
         ShippingDetail sd = null;
-        try{
-            String query = "select * from shipping where userId = ?";
+        try {
+            String query = "SELECT * FROM shipping WHERE userId = ?";
             PreparedStatement pt1 = conn.prepareStatement(query);
             pt1.setInt(1, userId);
             ResultSet rs1 = pt1.executeQuery();
+
             if(rs1.next()) {
                 sd = new ShippingDetail();
                 sd.setName(rs1.getString("name"));
@@ -88,5 +80,4 @@ public class ShippingDAO {
         }
         return sd;
     }
-    
 }
