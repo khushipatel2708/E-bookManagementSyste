@@ -269,7 +269,7 @@
             <div class="category-nav shadow-sm">
                 <h5>📚 Explore Categories</h5>
                 <%
-                    for (String category : groupedBooks.keySet()) {
+                     for (String category : groupedBooks.keySet()) {
                 %>
                         <a href="#cat-<%= category.replaceAll("\\s+", "-") %>">
                             <i class="fas fa-book-reader"></i> <%= category %>
