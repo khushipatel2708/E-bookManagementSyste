@@ -18,12 +18,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        String username = req.getParameter("username");
+        String email = req.getParameter("email");
         String password = req.getParameter("password");
 
         String hashedPwd = PasswordEncrypt.hashPassword(password);
         UserDAO dao = new UserDAO();
-        User u = dao.loginAnyStatus(username, hashedPwd);
+        User u = dao.loginAnyStatus(email, hashedPwd);
 
         String contextPath = req.getContextPath();
 
@@ -34,10 +34,10 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("userObj", u);
 
             // Store display name for navbar
-            session.setAttribute("userName",
+            session.setAttribute("email",
                 (u.getFullname() != null && !u.getFullname().trim().isEmpty())
                     ? u.getFullname()
-                    : u.getUsername()
+                    : u.getEmail()
             );
 
             // Admin role → go to admin panel
@@ -57,14 +57,14 @@ public class LoginServlet extends HttpServlet {
                             "/VerifyAccountServlet?email=" + u.getEmail() + "&token=" + token;
 
                     String subject = "Verify Your Account";
-                    String body = "Hello " + session.getAttribute("userName") + ",\n\n" +
+                    String body = "Hello " + session.getAttribute("email") + ",\n\n" +
                             "Click the link below to verify your account:\n" +
                             verifyLink + "\n\nThank you!";
 
                     new Thread(new Email(u.getEmail(), subject, body)).start();
                 }
 
-                resp.sendRedirect(contextPath + "/Authentication/index.jsp?msg=Account pending! Check your email.");
+                resp.sendRedirect(contextPath + "/index.jsp?msg=Account pending! Check your email.");
                 return;
             }
 
@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
             resp.sendRedirect(contextPath + "/index.jsp");
 
         } else {
-            resp.sendRedirect(contextPath + "/Authentication/index.jsp?msg=Invalid Username/Password");
+            resp.sendRedirect(contextPath + "/index.jsp?msg=Invalid Email/Password");
         }
     }
 }
