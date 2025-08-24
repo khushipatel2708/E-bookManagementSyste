@@ -1,13 +1,10 @@
 package com.servlet;
 
-import com.dao.UserDAO;
-import com.detail.UserDetail;
+import authDAO.UserDAO;
+import auth.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,22 +15,24 @@ public class DeleteAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        if (session.getAttribute("userL") != null) {
-            UserDetail ud = (UserDetail) session.getAttribute("userL");
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userObj") != null) {
+            User ud = (User) session.getAttribute("userObj");
             int id = ud.getId();
 
             UserDAO dao = new UserDAO();
-            String done = dao.deleteAccount(id);
+            String result = dao.deleteAccount(id);
 
-            session.invalidate(); // Logout after deletion
-
-            response.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = response.getWriter()) {
-                out.println(done);  // Print result like "done" or "error"
+            if ("done".equals(result)) {
+                session.invalidate(); // Logout after deletion
             }
+
+            out.print(result); // AJAX will get this response
         } else {
-            response.sendRedirect("userLogin.jsp"); // optional fallback
+            out.print("no-session");
         }
     }
 
@@ -51,6 +50,6 @@ public class DeleteAccountServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Handles user account deletion";
+        return "Handles user account deletion via AJAX";
     }
 }

@@ -3,6 +3,8 @@ package authDAO;
 import com.database.DBConnect;
 import auth.User;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAO {
 
@@ -23,8 +25,12 @@ public class UserDAO {
             return "ok";
 
         } catch (SQLIntegrityConstraintViolationException ex) {
-            if (ex.getMessage().contains("username")) return "duplicate-username";
-            if (ex.getMessage().contains("email")) return "duplicate-email";
+            if (ex.getMessage().contains("username")) {
+                return "duplicate-username";
+            }
+            if (ex.getMessage().contains("email")) {
+                return "duplicate-email";
+            }
             return "error";
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,4 +150,50 @@ public class UserDAO {
         }
         return user;
     }
+
+    public String deleteAccount(int id) {
+        String getEmailSQL = "SELECT email FROM users WHERE id=?";
+        String deleteTokenSQL = "DELETE FROM userverifications WHERE email=?";
+        String deleteUserSQL = "DELETE FROM users WHERE id=?";
+
+        try (Connection conn = DBConnect.getConnection()) {
+            conn.setAutoCommit(false); // start transaction
+            String email = null;
+
+            // 1️⃣ Get email
+            try (PreparedStatement psEmail = conn.prepareStatement(getEmailSQL)) {
+                psEmail.setInt(1, id);
+                ResultSet rs = psEmail.executeQuery();
+                if (rs.next()) {
+                    email = rs.getString("email");
+                } else {
+                    return "no"; // user not found
+                }
+            }
+
+            // 2️⃣ Delete from userverifications
+            try (PreparedStatement psToken = conn.prepareStatement(deleteTokenSQL)) {
+                psToken.setString(1, email);
+                psToken.executeUpdate();
+            }
+
+            // 3️⃣ Delete from users
+            try (PreparedStatement psUser = conn.prepareStatement(deleteUserSQL)) {
+                psUser.setInt(1, id);
+                int rows = psUser.executeUpdate();
+                if (rows > 0) {
+                    conn.commit();
+                    return "done";
+                } else {
+                    conn.rollback();
+                    return "no";
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return "error";
+        }
+    }
+
 }
