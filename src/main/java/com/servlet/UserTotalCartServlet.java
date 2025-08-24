@@ -7,7 +7,7 @@ package com.servlet;
 
 import com.dao.CartDAO;
 import com.database.DBConnect;
-import com.detail.UserDetail;
+import auth.User; // ✅ same class as in LoginServlet
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -33,56 +33,42 @@ public class UserTotalCartServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        if(session.getAttribute("userL")!=null){
+
+        // ✅ Use the same session attribute as LoginServlet
+        if (session.getAttribute("userObj") != null) {
             CartDAO dao = new CartDAO(DBConnect.getConnection());
-            UserDetail ud = (UserDetail) session.getAttribute("userL");
-            int done = dao.totalCart(ud.getId());
+            User u = (User) session.getAttribute("userObj");
+
+            int total = dao.totalCart(u.getId());
+
             try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println(done);
+                out.println(total);
             }   
+        } else {
+            try (PrintWriter out = response.getWriter()) {
+                out.println("login"); // optional: force login if not logged in
+            }
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        return "Returns total cart count for logged-in user";
+    }
 
 }

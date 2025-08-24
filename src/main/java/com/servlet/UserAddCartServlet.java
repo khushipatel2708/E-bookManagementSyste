@@ -7,7 +7,7 @@ package com.servlet;
 
 import com.dao.CartDAO;
 import com.database.DBConnect;
-import com.detail.UserDetail;
+import auth.User;  // ✅ use same class as LoginServlet
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -36,18 +36,21 @@ public class UserAddCartServlet extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        if(session.getAttribute("userL")==null){
+
+        // ✅ check correct session attribute set in LoginServlet
+        if (session.getAttribute("userObj") == null) {
             try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("login");
+                out.println("login"); // or response.sendRedirect("login.jsp");
             }   
         } else {
             int bookId = Integer.parseInt(request.getParameter("bookId"));
             CartDAO dao = new CartDAO(DBConnect.getConnection());
-            UserDetail ud = (UserDetail) session.getAttribute("userL");
-            String done = dao.insertCart(bookId, ud.getId());
+
+            // ✅ cast to auth.User 
+            User u = (User) session.getAttribute("userObj");
+
+            String done = dao.insertCart(bookId, u.getId());
             try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
                 out.println(done);
             }   
         }
