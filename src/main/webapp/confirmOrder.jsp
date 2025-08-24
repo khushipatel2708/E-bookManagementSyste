@@ -8,10 +8,10 @@
 <%@page import="com.detail.CartDetail"%>
 <%@page import="java.util.List"%>
 <%
-    if(session.getAttribute("userL")==null){
+    if(session.getAttribute("userObj")==null){
         response.sendRedirect("./index.jsp");
     } else {
-        UserDetail udCart = (UserDetail) session.getAttribute("userL");
+        User udCart = (User) session.getAttribute("userObj");
         CartDAO cartDAO2 = new CartDAO(DBConnect.getConnection());
         List<CartDetail> list = cartDAO2.getCart(udCart.getId());
         if(list.size()==0) {
@@ -194,7 +194,7 @@
     <script src="./js/confirmOrder.js"></script>
     <script>
         const totalOrderPrice = <%= ((totalPrice >= 699) ? 0 : 70) + totalPrice %>;
-        const userName = "<%= udCart.getName() %>";
+        const userName = "<%= udCart.getUsername() %>";
         const userEmail = "<%= udCart.getEmail() %>";
     </script>
 </body>
