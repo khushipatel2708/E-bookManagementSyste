@@ -142,11 +142,17 @@
                                 %>
                             </td>
                             <td><%= totalPrice %></td>
-                            <td>
+                            <!--<td>
                                 <button class="btn btn-danger btn-sm btn-custom" onclick="deleteCartBook(<%= cd.getBookId() %>)">
                                     <i class="fas fa-trash-alt"></i> Remove
                                 </button>
-                            </td>
+                            </td>-->
+                            <td>
+    <button class="btn btn-danger btn-sm btn-custom" onclick="confirmDelete(<%= cd.getBookId() %>)">
+        <i class="fas fa-trash-alt"></i> Remove
+    </button>
+</td>
+
                         </tr>
                     <%
                         }
@@ -207,6 +213,28 @@
         $("#searchBook2").attr("action","./newBook.jsp");
     </script>
     <script src="js/myCart.js" type="text/javascript"></script>
+    
+    <script>
+function confirmDelete(bookId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This book will be removed from your cart!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // call backend to delete
+            deleteCartBook(bookId);
+        }
+    });
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
 <%
