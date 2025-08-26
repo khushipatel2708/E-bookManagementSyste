@@ -1,5 +1,5 @@
 <%
-    if(session.getAttribute("admin") == null){
+    if(session.getAttribute("userObj") == null){
         response.sendRedirect("./adminLogin.jsp");
     } else {
 %>
