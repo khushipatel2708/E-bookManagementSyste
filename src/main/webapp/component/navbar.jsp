@@ -21,9 +21,9 @@
 <%
     if (ud != null && "pending".equalsIgnoreCase(ud.getStatus())) {
 %>
-    <div style="background-color:#dc3545; color:white; text-align:center; padding:5px; font-weight:bold;">
-        ? Your account is not verified yet! Please check your email to activate it.
-    </div>
+<div style="background-color:#dc3545; color:white; text-align:center; padding:5px; font-weight:bold;">
+    ? Your account is not verified yet! Please check your email to activate it.
+</div>
 <%
     }
 %>
@@ -61,9 +61,10 @@
                 <li class="nav-item">
                     <a class="nav-link text-white nav-hover" href="./myCart.jsp">
                         <i class="fa fa-shopping-cart"></i> Cart 
-                        <span class="badge badge-light ml-1"><%= totalCart%></span>
+                        <span id="navbarTotalCart" class="badge badge-light ml-1"><%= totalCart%></span>
                     </a>
                 </li>
+
                 <% } %>
             </ul>
 

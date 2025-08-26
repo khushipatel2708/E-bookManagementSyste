@@ -1,25 +1,21 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 function addCart(bookId){
     $.ajax({
-        url: "UserAddCartServlet?bookId="+bookId,
-        method: "get",
+        url: "UserAddCartServlet",
+        method: "POST",   // ✅ use POST
+        data: { bookId: bookId },
         success: function(data){
             if(data.trim()==="login"){
                 alert("Please login...");
             } else if(data.trim()==="done"){
+                // Update cart count dynamically
                 $.ajax({
                     url: "UserTotalCartServlet",
-                    method: "get",
+                    method: "GET",
                     success: function(data) {
                         $("#navbarTotalCart").html(data.trim());
                     },
                     error: function() {
-                        alert("Something went wrong!");
+                        alert("Something went wrong while updating cart count!");
                     }
                 });
             }
@@ -29,19 +25,21 @@ function addCart(bookId){
         }
     });
 }
+
 function addCart2(bookId){
     $.ajax({
-        url: "UserAddCartServlet?bookId="+bookId,
-        method: "get",
+        url: "UserAddCartServlet",
+        method: "POST",   // ✅ use POST
+        data: { bookId: bookId },
         success: function(data){
             if(data.trim()==="login"){
                 alert("Please login...");
             } else if(data.trim()==="done"){
+                location.href="./myCart.jsp"; // redirect only after success
             }
         },
         error: function() {
             alert("Something went wrong!");
         }
     });
-    location.href="./myCart.jsp";
 }
