@@ -2,7 +2,7 @@ package com.servlet;
 
 import com.dao.OrderDAO;
 import com.database.DBConnect;
-import com.detail.UserDetail;
+import auth.User; // ✅ use your actual User model from auth package
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,14 +21,16 @@ public class UserConfirmOrderServlet extends HttpServlet {
         
         try (PrintWriter out = response.getWriter()) {
             
-            UserDetail ud = (UserDetail) session.getAttribute("userL");
+            // ✅ Replace "userL" with "userObj"
+            User u = (User) session.getAttribute("userObj");
             
-            if (ud == null) {
-                out.print("error");
+            if (u == null) {
+                out.print("error"); // not logged in
                 return;
             }
 
-            if (!ud.isActive()) {
+            // ✅ check status (ACTIVE / PENDING etc. based on your User model)
+            if (!"ACTIVE".equalsIgnoreCase(u.getStatus())) {
                 out.print("verify");
                 return;
             }
@@ -40,11 +42,11 @@ public class UserConfirmOrderServlet extends HttpServlet {
                 return;
             }
 
-            int id = ud.getId();
+            int id = u.getId();
             OrderDAO dao = new OrderDAO(DBConnect.getConnection());
 
             // Confirm order and pass payment method
-            String done = dao.confirmOrder(ud.getEmail(), id, pMethod);
+            String done = dao.confirmOrder(u.getEmail(), id, pMethod);
 
             out.print(done); // expected "done", "verify", or "error"
         } catch (Exception e) {
