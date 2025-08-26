@@ -17,7 +17,7 @@ public class ShippingAddressServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("userObj"); // ✅ same attribute as JSP
 
@@ -29,7 +29,8 @@ public class ShippingAddressServlet extends HttpServlet {
             String address1 = request.getParameter("add1");
             String address2 = request.getParameter("add2");
             String landmark = request.getParameter("lMark");
-            String city = request.getParameter("city");
+//            String city = request.getParameter("city");
+            int city = Integer.parseInt(request.getParameter("city"));
             String pinCode = request.getParameter("pin");
 
             ShippingDetail sd = new ShippingDetail();

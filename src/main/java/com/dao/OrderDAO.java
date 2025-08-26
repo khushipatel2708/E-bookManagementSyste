@@ -112,7 +112,7 @@ public class OrderDAO {
         pt1.setString(6, shipping.getAddress1());
         pt1.setString(7, shipping.getAddress2());
         pt1.setString(8, shipping.getLandmark());
-        pt1.setString(9, shipping.getCity());
+        pt1.setInt(9, shipping.getCity());
         pt1.setString(10, shipping.getPinCode());
 
         int i = pt1.executeUpdate();

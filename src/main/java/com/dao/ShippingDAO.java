@@ -29,7 +29,7 @@ public class ShippingDAO {
                 pt2.setString(3, sd.getAddress1());
                 pt2.setString(4, sd.getAddress2());
                 pt2.setString(5, sd.getLandmark());
-                pt2.setString(6, sd.getCity());
+                pt2.setInt(6, sd.getCity());
                 pt2.setString(7, sd.getPinCode());
                 pt2.setInt(8, sd.getUserId());
 
@@ -43,7 +43,7 @@ public class ShippingDAO {
                 pt2.setString(3, sd.getAddress1());
                 pt2.setString(4, sd.getAddress2());
                 pt2.setString(5, sd.getLandmark());
-                pt2.setString(6, sd.getCity());
+                pt2.setInt(6, sd.getCity());
                 pt2.setString(7, sd.getPinCode());
                 pt2.setInt(8, sd.getUserId());
 
@@ -71,7 +71,7 @@ public class ShippingDAO {
                 sd.setAddress1(rs1.getString("address1"));
                 sd.setAddress2(rs1.getString("address2"));
                 sd.setLandmark(rs1.getString("landmark"));
-                sd.setCity(rs1.getString("city"));
+                sd.setCity(rs1.getInt("city"));
                 sd.setPinCode(rs1.getString("pincode"));
                 sd.setUserId(rs1.getInt("userId"));
             }

@@ -16,7 +16,7 @@ public class ShippingDetail {
     private String address1;
     private String address2;
     private String landmark;
-    private String city;
+    private int city;
     private String pinCode;
     private int userId;
 
@@ -60,11 +60,11 @@ public class ShippingDetail {
         this.landmark = landmark;
     }
 
-    public String getCity() {
+    public int getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(int city) {
         this.city = city;
     }
 
