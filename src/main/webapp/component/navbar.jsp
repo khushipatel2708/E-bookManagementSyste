@@ -17,6 +17,17 @@
     }
 %>
 
+<!-- ? Show red line if account is pending -->
+<%
+    if (ud != null && "pending".equalsIgnoreCase(ud.getStatus())) {
+%>
+    <div style="background-color:#dc3545; color:white; text-align:center; padding:5px; font-weight:bold;">
+        ? Your account is not verified yet! Please check your email to activate it.
+    </div>
+<%
+    }
+%>
+
 <nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top" 
      style="background: linear-gradient(90deg, #007bff 0%, #6610f2 100%);">
     <div class="container">
