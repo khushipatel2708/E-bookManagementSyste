@@ -25,8 +25,10 @@ public class AdminBookAddServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-            if (session.getAttribute("admin") == null) {
-                response.sendRedirect("admin_login.jsp"); // Or wherever your login page is
+            
+            // ✅ use adminObj (same as LoginServlet)
+            if (session.getAttribute("adminObj") == null) {
+                response.sendRedirect("adminLogin.jsp"); // your admin login page
                 return;
             }
 
@@ -47,7 +49,7 @@ public class AdminBookAddServlet extends HttpServlet {
             bd.setBookCategory(category);
             bd.setPhoto(fileName);
 
-            // Extract file extension (for unique naming)
+            // Extract file extension for unique naming
             StringBuilder sb = new StringBuilder();
             for (int i = fileName.length() - 1; i >= 0; i--) {
                 if (fileName.charAt(i) == '.') {
@@ -66,12 +68,11 @@ public class AdminBookAddServlet extends HttpServlet {
                     byte[] data = new byte[is.available()];
                     is.read(data);
 
-//                    String path = getServletContext().getRealPath("/") + "img" + File.separator + "books-img";
-                    String path = "C:\\bookapp\\uploads\\books-img";  // Or any permanent location
+                    String path = "C:\\bookapp\\uploads\\books-img"; // permanent location
 
                     File dir = new File(path);
                     if (!dir.exists()) {
-                        dir.mkdirs(); // create directory if not exist
+                        dir.mkdirs();
                     }
 
                     String fullPath = path + File.separator + f;
@@ -79,7 +80,7 @@ public class AdminBookAddServlet extends HttpServlet {
                         fos.write(data);
                     }
 
-                    out.println("done"); // you can redirect if needed
+                    out.println("done");
                 } else {
                     out.println("no");
                 }

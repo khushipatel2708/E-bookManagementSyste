@@ -1,8 +1,9 @@
+<%@page import="auth.User"%>
 <%@ page import="com.detail.AdminDetail" %>
 <%@ page session="true" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    AdminDetail admin = (AdminDetail) session.getAttribute("admin");
+    User admin = (User) session.getAttribute("adminObj"); 
     if (admin == null) {
         response.sendRedirect("adminLogin.jsp");
         return;
@@ -38,15 +39,15 @@
     <div class="profile-card">
         <h4 class="text-center text-success mb-4"><i class="bi bi-person-circle"></i> Admin Profile</h4>
         <form method="post" action="updateProfile">
-            <input type="hidden" name="userName" value="<%= admin.getUserName() %>"/>
+            <input type="hidden" name="userName" value="<%= admin.getUsername()%>"/>
 
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
-                <input type="text" name="fullName" value="<%= admin.getFullName() %>" class="form-control" required/>
+                <input type="text" name="fullName" value="<%= admin.getFullname()%>" class="form-control" required/>
             </div>
   <div class="mb-3">
                 <label class="form-label">User Name</label>
-                <input type="text" name="userName" value="<%= admin.getUserName() %>" class="form-control" required/>
+                <input type="text" name="userName" value="<%= admin.getUsername()%>" class="form-control" required/>
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>

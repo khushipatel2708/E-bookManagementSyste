@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 
             // Admin role → go to admin panel
             if (u.getRoleId() == 1) {
+                session.setAttribute("adminObj", u);
                 resp.sendRedirect(contextPath + "/admin/adminPanel.jsp");
                 return;
             }

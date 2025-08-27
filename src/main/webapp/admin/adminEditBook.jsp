@@ -22,9 +22,9 @@
             }
 
             // Fetch categories for dropdown
-            String jdbcURL = "jdbc:mysql://localhost:3306/bookmanagementsystem?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+            String jdbcURL = "jdbc:mysql://localhost:3307/bookmanagementsystem?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
             String jdbcUsername = "root";
-            String jdbcPassword = "Asdfg@12#";
+            String jdbcPassword = "Yesha@123";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);

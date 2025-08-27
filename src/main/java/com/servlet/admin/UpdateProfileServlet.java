@@ -25,7 +25,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
         if (updated) {
             AdminDetail updatedAdmin = dao.getAdminByUserName(userName);
-            req.getSession().setAttribute("admin", updatedAdmin);
+            req.getSession().setAttribute("adminObj", updatedAdmin);
             resp.sendRedirect("adminProfile.jsp?msg=success");
         } else {
             resp.getWriter().write("Profile update failed.");

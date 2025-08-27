@@ -103,7 +103,7 @@
                                         <td><%= bd.getId()%></td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <img src="<%= request.getContextPath() %>/BookImage?img=<%= bd.getPhoto() %>" width="50" height="60" class="me-2 rounded shadow-sm" />
+                                                <img src="<%= request.getContextPath()%>/BookImage?img=<%= bd.getPhoto()%>" width="50" height="60" class="me-2 rounded shadow-sm" />
                                                 <span><%= bd.getBookName()%></span>
                                             </div>
                                         </td>
@@ -116,10 +116,14 @@
                                                 <a href="./adminEditBook.jsp?bookId=<%= bd.getId()%>" class="btn btn-sm btn-outline-primary me-2">
                                                     <i class="bi bi-pencil-square"></i>Edit
                                                 </a>
-                                                <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete(<%= bd.getId()%>)"><i class="bi bi-trash-fill"></i>Delete</button>
-    <!--                                        <a href="../AdminDeleteBookServlet?id=<%= bd.getId()%>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure to delete this book?');">
-                                                <i class="bi bi-trash-fill"></i>Delete
-                                            </a>-->
+                                                <button class="btn btn-sm btn-outline-danger"
+                                                        onclick="confirmDelete(<%= bd.getId()%>, '<%= bd.getPhoto()%>')">
+                                                    <i class="bi bi-trash-fill"></i>Delete
+                                                </button>
+                                                                                                <!--<button class="btn btn-sm btn-outline-danger" onclick="confirmDelete(<%= bd.getId()%>)"><i class="bi bi-trash-fill"></i>Delete</button>-->
+                                                    <!--                                        <a href="../AdminDeleteBookServlet?id=<%= bd.getId()%>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure to delete this book?');">
+                                                                                                <i class="bi bi-trash-fill"></i>Delete
+                                                                                            </a>-->
                                             </div>
                                         </td>
                                     </tr>
@@ -167,23 +171,23 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-                                                function confirmDelete(bookId) {
-                                                    Swal.fire({
-                                                        title: 'Are you sure?',
-                                                        text: "You won't be able to revert this action!",
-                                                        icon: 'warning',
-                                                        showCancelButton: true,
-                                                        confirmButtonColor: '#d33',
-                                                        cancelButtonColor: '#3085d6',
-                                                        confirmButtonText: 'Yes, delete it!',
-                                                        cancelButtonText: 'Cancel'
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            // Redirect to delete servlet
-                                                            window.location.href = '../AdminDeleteBookServlet?id=' + bookId;
-                                                        }
-                                                    });
-                                                    }
+            function confirmDelete(bookId) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this action!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to delete servlet
+                        window.location.href = '<%= request.getContextPath()%>/AdminDeleteBookServlet?id=' + bookId;
+                    }
+                });
+                }
 </script>
 
 <%

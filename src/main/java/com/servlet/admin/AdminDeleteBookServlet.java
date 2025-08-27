@@ -17,7 +17,7 @@ public class AdminDeleteBookServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if (session.getAttribute("admin") != null) {
+        if (session.getAttribute("adminObj") != null) {
             try {
                 int id = Integer.parseInt(request.getParameter("id"));
 
@@ -43,7 +43,7 @@ public class AdminDeleteBookServlet extends HttpServlet {
                 response.sendRedirect("./admin/adminAllBook.jsp?error=invalid_id");
             }
         } else {
-            response.sendRedirect("admin_login.jsp"); // or your login page
+            response.sendRedirect("./adminLogin.jsp"); // or your login page
         }
     }
 

@@ -1,14 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%
-    if (session.getAttribute("admin") == null) {
+    if (session.getAttribute("adminObj") == null) {
         response.sendRedirect("./adminLogin.jsp");
     } else {
 
         // JDBC Connection settings (fixed for MySQL 8+)
-        String jdbcURL = "jdbc:mysql://localhost:3306/bookmanagementsystem?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+        String jdbcURL = "jdbc:mysql://localhost:3307/bookmanagementsystem?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
         String jdbcUsername = "root";
-        String jdbcPassword = "Asdfg@12#"; // Your actual MySQL password
+        String jdbcPassword = "Yesha@123"; // Your actual MySQL password
 
         Connection conn = null;
         PreparedStatement ps = null;
@@ -149,6 +149,9 @@
                                 </div>
                                 <div class="col-8">
                                     <input type="file" accept="image/*" class="form-control" id="photo" name="photo" required>
+                                    <div class="mt-3 text-center">
+                                        <img id="previewImage" src="" alt="Preview" class="img-fluid rounded shadow-sm d-none" style="max-height: 200px;">
+                                    </div>
                                 </div>
                             </div>
 

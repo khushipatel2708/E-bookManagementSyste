@@ -35,7 +35,7 @@ public class AdminBookEditServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             HttpSession session = request.getSession();
-            if(session.getAttribute("admin")==null){
+            if(session.getAttribute("adminObj")==null){
                 return;
             }
             int bookId = Integer.parseInt(request.getParameter("bookId").trim());

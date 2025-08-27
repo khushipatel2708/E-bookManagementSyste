@@ -5,7 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    if (session.getAttribute("admin") == null) {
+    if (session.getAttribute("adminObj") == null) {
         response.sendRedirect("./adminLogin.jsp");
         return;
     }
@@ -39,27 +39,59 @@
 
     <style>
         body {
-            background: #f8f9fa;
+            background: #eef2f7;
+            font-family: "Segoe UI", sans-serif;
         }
         .order-card {
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 25px;
-            margin-top: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            padding: 30px;
+            margin-top: 40px;
+            transition: transform 0.3s ease;
+        }
+        .order-card:hover {
+            transform: translateY(-3px);
         }
         .section-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 25px;
             color: #0d6efd;
+            text-transform: uppercase;
+            border-bottom: 2px solid #0d6efd;
+            padding-bottom: 6px;
+            display: inline-block;
         }
         .info-label {
             font-weight: 600;
-            color: #333;
+            color: #444;
+            display: inline-block;
+            min-width: 140px;
         }
         .info-value {
-            margin-bottom: 10px;
+            color: #000;
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table thead {
+            background: #0d6efd;
+            color: #fff;
+        }
+        .table tbody tr:hover {
+            background: #f1f5ff;
+        }
+        .btn-outline-primary {
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-outline-primary:hover {
+            background: #0d6efd;
+            color: #fff;
         }
     </style>
 </head>
@@ -73,13 +105,13 @@
                 <div class="order-card">
                     <h4 class="section-title text-center"><i class="bi bi-receipt-cutoff me-2"></i>Order Details</h4>
 
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-md-6">
-                            <p><span class="info-label">Order No:</span> <%= old.getOrderID() %></p>
-                            <p><span class="info-label">Total Price:</span> ₹<%= old.getPrice() %></p>
-                            <p><span class="info-label">Date:</span> <%= old.getDate() %></p>
-                            <p><span class="info-label">Payment Method:</span> <%= old.getPaymentMethod() %></p>
-                            <p><span class="info-label">Status:</span> <%= old.getStatus() %></p>
+                            <p><span class="info-label">Order No:</span> <span class="info-value"><%= old.getOrderID() %></span></p>
+                            <p><span class="info-label">Total Price:</span> <span class="info-value">₹<%= old.getPrice() %></span></p>
+                            <p><span class="info-label">Date:</span> <span class="info-value"><%= old.getDate() %></span></p>
+                            <p><span class="info-label">Payment Method:</span> <span class="info-value"><%= old.getPaymentMethod() %></span></p>
+                            <p><span class="info-label">Status:</span> <span class="badge bg-primary px-3 py-2"><%= old.getStatus() %></span></p>
                         </div>
                         <div class="col-md-6">
                             <p><span class="info-label">Name:</span> <%= old.getName() %></p>
@@ -92,13 +124,11 @@
                         </div>
                     </div>
 
-                    <hr>
-
                     <h5 class="section-title text-center"><i class="bi bi-journal-bookmark me-2"></i>Book List</h5>
 
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped align-middle">
-                            <thead class="table-dark">
+                        <table class="table table-hover align-middle">
+                            <thead>
                                 <tr>
                                     <th>Book Name</th>
                                     <th>Author Name</th>
@@ -114,7 +144,7 @@
                                     <td><%= ocl.getBookName() %></td>
                                     <td><%= ocl.getAuthorName() %></td>
                                     <td><%= ocl.getQuantity() %></td>
-                                    <td><%= ocl.getPrice() %></td>
+                                    <td>₹<%= ocl.getPrice() %></td>
                                 </tr>
                                 <%
                                     }
