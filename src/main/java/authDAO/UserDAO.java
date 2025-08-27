@@ -198,5 +198,48 @@ public class UserDAO {
             return "error";
         }
     }
+    
+    public boolean updateUserProfile(String username, String fullname, String email, String phone) {
+    boolean success = false;
+    try {
+        Connection con = DBConnect.getConnection();
+        String sql = "UPDATE users SET fullname=?, email=?, phone=? WHERE username=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, fullname);
+        ps.setString(2, email);
+        ps.setString(3, phone);
+        ps.setString(4, username);
+
+        success = ps.executeUpdate() > 0;
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return success;
+}
+
+public User getUserByUsername(String username) {
+    User u = null;
+    try {
+        Connection con = DBConnect.getConnection();
+        String sql = "SELECT * FROM users WHERE username=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            u = new User();
+            u.setId(rs.getInt("id"));
+            u.setFullname(rs.getString("fullname"));
+            u.setUsername(rs.getString("username"));
+            u.setEmail(rs.getString("email"));
+            u.setPhone(rs.getString("phone"));
+            u.setRoleId(rs.getInt("role_id"));
+            u.setStatus(rs.getString("status"));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return u;
+}
+
 
 }

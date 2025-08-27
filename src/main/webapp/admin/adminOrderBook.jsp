@@ -5,7 +5,7 @@
 <%@page import="com.detail.OrderListDetail"%>
 
 <%
-    if (session.getAttribute("admin") == null) {
+    if (session.getAttribute("adminObj") == null) {
         response.sendRedirect("./adminLogin.jsp");
         return; // important to stop further processing
     }

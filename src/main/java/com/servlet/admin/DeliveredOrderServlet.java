@@ -18,7 +18,7 @@ public class DeliveredOrderServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        if (session.getAttribute("admin") == null) {
+        if (session.getAttribute("adminObj") == null) {
             response.sendRedirect("adminLogin.jsp"); // Optional: redirect to login
             return;
         }

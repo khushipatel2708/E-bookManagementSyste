@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    if (session.getAttribute("userObj") == null) {
+    if (session.getAttribute("adminObj") == null) {
         response.sendRedirect("./adminLogin.jsp");
     } else {
 %>

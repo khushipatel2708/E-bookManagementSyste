@@ -1,7 +1,7 @@
 package com.servlet.admin;
 
-import com.dao.admin.AdminDAO;
-import com.detail.AdminDetail;
+import authDAO.UserDAO;
+import auth.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -20,15 +20,15 @@ public class UpdateProfileServlet extends HttpServlet {
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
 
-        AdminDAO dao = new AdminDAO();
-        boolean updated = dao.updateAdminProfile(userName, fullName, email, phone);
+        UserDAO dao = new UserDAO();
+        boolean updated = dao.updateUserProfile(userName, fullName, email, phone); // 👈 implement in UserDAO
 
         if (updated) {
-            AdminDetail updatedAdmin = dao.getAdminByUserName(userName);
+            User updatedAdmin = dao.getUserByUsername(userName); // 👈 implement in UserDAO
             req.getSession().setAttribute("adminObj", updatedAdmin);
             resp.sendRedirect("adminProfile.jsp?msg=success");
         } else {
-            resp.getWriter().write("Profile update failed.");
+            resp.sendRedirect("adminProfile.jsp?msg=fail");
         }
     }
 }

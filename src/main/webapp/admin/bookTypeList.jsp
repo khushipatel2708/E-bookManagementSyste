@@ -2,7 +2,7 @@
 <%@page import="com.dao.admin.BookTypeDAO"%>
 <%@page import="com.detail.BookTypeDetail"%>
 <%
-    if (session.getAttribute("userObj") == null) {
+    if (session.getAttribute("adminObj") == null) {
         response.sendRedirect("./adminLogin.jsp");
     } else {
         BookTypeDAO dao = new BookTypeDAO();

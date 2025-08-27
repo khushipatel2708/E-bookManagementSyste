@@ -3,7 +3,7 @@
 <%@page import="com.database.DBConnect"%>
 <%@page import="com.dao.admin.BookDAO"%>
 <%
-    if (session.getAttribute("userObj") == null) {
+    if (session.getAttribute("adminObj") == null) {
         response.sendRedirect("./adminLogin.jsp");
     } else {
         int pageNo = 1;
